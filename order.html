@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اطلب الآن | النرجس للتطريز</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #5c3d48;
+            --accent-color: #3DB7B5;
+            --bg-color: #FAF9F6;
+            --card-bg: #f0eae1;
+            --text-dark: #2d2d2d;
+            --text-muted: #554d4f;
+            --shadow: 0 15px 35px rgba(92, 61, 72, 0.04);
+            --transition: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #FAF9F6 0%, #B7EBE3 100%);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .thread-motion {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+            opacity: .35;
+        }
+
+        .thread-motion span {
+            position: absolute;
+            width: 42vw;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(61,183,181,.28), transparent);
+            border-radius: 999px;
+            transform-origin: center;
+            animation: threadDrift 14s ease-in-out infinite;
+        }
+
+        .thread-motion span:nth-child(1) { top: 22%; left: -12%; transform: rotate(18deg); animation-delay: -2s; }
+        .thread-motion span:nth-child(2) { top: 48%; left: 45%; width: 35vw; transform: rotate(-24deg); animation-delay: -7s; }
+        .thread-motion span:nth-child(3) { top: 72%; left: -8%; width: 48vw; transform: rotate(12deg); animation-delay: -10s; }
+        .thread-motion span:nth-child(4) { top: 34%; left: 68%; width: 30vw; transform: rotate(32deg); animation-delay: -5s; }
+
+        @keyframes threadDrift {
+            0%, 100% { translate: 0 0; scale: 1; opacity: .55; }
+            50% { translate: 18px -10px; scale: 1.04; opacity: 1; }
+        }
+
+        header {
+            background-color: rgba(247, 244, 237, 0.95);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(184, 148, 36, 0.15);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .logo-img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+            transition: transform 0.8s var(--transition);
+        }
+
+        .logo-wrapper:hover .logo-img {
+            transform: rotate(360deg) scale(1.15);
+        }
+
+        .logo-text {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        nav a {
+            color: var(--text-dark);
+            text-decoration: none;
+            margin-right: 25px;
+            font-weight: 600;
+            font-size: 16px;
+            position: relative;
+            transition: color 0.3s ease;
+            padding: 8px 0;
+            display: inline-block;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            border-radius: 2px;
+            background: linear-gradient(270deg, var(--accent-color), var(--primary-color), #3DB7B5, var(--accent-color));
+            background-size: 400% 400%;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s var(--transition);
+            animation: animateGradientStream 4s infinite linear;
+        }
+
+        nav a:hover::after, nav a.active::after {
+            transform: scaleX(1);
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--primary-color);
+        }
+
+        @keyframes animateGradientStream {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 60px 20px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header h1 {
+            font-size: 45px;
+            color: var(--primary-color);
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            font-size: 19px;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .header-divider {
+            width: 180px;
+            height: 5px;
+            margin: 25px auto;
+            border-radius: 10px;
+            background: linear-gradient(270deg, var(--primary-color), var(--accent-color), #3DB7B5, var(--primary-color));
+            background-size: 600% 600%;
+            animation: animateGradientStream 6s infinite linear;
+        }
+
+        .form-container {
+            max-width: 700px;
+            margin: 40px auto 100px;
+            background-color: var(--card-bg);
+            padding: 50px;
+            border-radius: 35px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(184, 148, 36, 0.04);
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-size: 17px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="tel"],
+        .form-group input[type="file"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            background-color: rgba(255,255,255,0.6);
+            border: 1px solid rgba(92, 61, 72, 0.1);
+            border-radius: 12px;
+            font-size: 16px;
+            box-sizing: border-box;
+            font-family: inherit;
+            color: var(--text-dark);
+            transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+        }
+
+        .form-group input[type="file"] {
+            padding: 12px;
+            background-color: transparent;
+            border: 2px dashed rgba(184, 148, 36, 0.2);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(184, 148, 36, 0.15);
+        }
+
+        .radio-group {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .radio-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--accent-color) 0%, #2F8F8B 100%);
+            color: #fff;
+            width: 100%;
+            padding: 16px;
+            font-size: 20px;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(184, 148, 36, 0.3);
+            transition: transform 0.4s var(--transition), box-shadow 0.4s var(--transition);
+            position: relative;
+            overflow: hidden;
+            font-family: inherit;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 0 25px rgba(184, 148, 36, 0.8), 0 0 50px rgba(184, 148, 36, 0.4);
+        }
+
+        footer {
+            background-color: #1a1215;
+            color: #b5a4ab;
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 15px;
+            border-top: 3px solid var(--accent-color);
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            nav {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            nav a {
+                margin: 0 5px;
+            }
+
+            .form-container {
+                padding: 30px 20px;
+                border-radius: 25px;
+            }
+
+            .page-header h1 {
+                font-size: 32px;
+            }
+
+            .thread-motion {
+                opacity: .22;
+            }
+        }
+    </style>
+
+    <link rel="icon" type="image/png" href="lo.png">
+</head>
+<body>
+
+    <div class="thread-motion" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo-wrapper">
+                <img src="lo.png" alt="شعار النرجس" class="logo-img">
+                <div class="logo-text">النرجس</div>
+            </div>
+
+            <nav>
+                <a href="index.html">الرئيسية</a>
+                <a href="services.html">خدماتنا</a>
+                <a href="order.html" class="active">اطلب الآن</a>
+                <a href="contact.html">اتصل بنا</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <h1>استمارة طلب التطريز</h1>
+        <p>يرجى ملء البيانات التالية بدقة، وسيتواصل معك فريق النرجس فوراً لتأكيد الطلب</p>
+        <div class="header-divider"></div>
+    </div>
+
+    <div class="form-container">
+        <form action="https://formsubmit.co/loaialdhawi@gmail.com" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_subject" value="طلب تطريز جديد من موقع النرجس!">
+            <input type="hidden" name="_next" value="https://il0q.github.io/alnarjis-embroidery/thank-you.html">
+
+            <div class="form-group">
+                <label for="name">الاسم الكريم:</label>
+                <input type="text" id="name" name="الاسم" placeholder="اكتب اسمك الكامل هنا" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">رقم الهاتف (واتساب):</label>
+                <input type="tel" id="phone" name="رقم الهاتف" placeholder="مثال: 968XXXXXXXX" required>
+            </div>
+
+            <div class="form-group">
+                <label for="service-type">نوع الخدمة المطلوبة:</label>
+                <select id="service-type" name="نوع الخدمة" required>
+                    <option value="" disabled selected>اختر الخدمة من هنا...</option>
+                    <option value="تطريز على ملابس خاصة">التطريز على ملابسي الخاصة</option>
+                    <option value="تصميم وتفصيل متكامل">تصميم وتفصيل متكامل من الصفر</option>
+                    <option value="طلب آخر / استفسار">طلب آخر أو استفسار خاص</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>صورة تصميم التطريز:</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="حالة الصورة" value="لدي صورة وسأقوم برفعها" checked>
+                        لدي صورة جاهزة للتصميم وأريد رفعها
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="حالة الصورة" value="لا أملك صورة وأريد من النرجس تصميمها">
+                        لا أملك صورة، وأريد من النرجس تصميمها لي وفق رغبتي
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group" id="file-upload-section">
+                <label for="design-file">ارفع صورة التصميم هنا (إن وجدت):</label>
+                <input type="file" id="design-file" name="ملف التصميم" accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <label for="details">تفاصيل إضافية حول الطلب:</label>
+                <textarea id="details" name="تفاصيل الطلب" rows="5" placeholder="اكتب هنا مقاساتك، الألوان المفضلة، أو الفكرة التي تريدها..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">إرسال الطلب إلى النرجس</button>
+        </form>
+    </div>
+
+    <script>
+        // إظهار/إخفاء رفع الصورة بحسب اختيار العميل
+        const imageOptions = document.querySelectorAll('input[name="حالة الصورة"]');
+        const uploadSection = document.getElementById('file-upload-section');
+        const designFile = document.getElementById('design-file');
+
+        function updateUploadField() {
+            const wantsUpload = document.querySelector('input[name="حالة الصورة"]:checked')?.value === 'لدي صورة وسأقوم برفعها';
+            uploadSection.hidden = !wantsUpload;
+            designFile.disabled = !wantsUpload;
+            if (!wantsUpload) designFile.value = '';
+        }
+
+        imageOptions.forEach(option => option.addEventListener('change', updateUploadField));
+        updateUploadField();
+    </script>
+
+    <footer>
+        <p>&copy; 2026 النرجس للتطريز. جميع الحقوق محفوظة.</p>
+    </footer>
+
+</body>
+</html>
